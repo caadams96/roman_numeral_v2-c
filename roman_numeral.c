@@ -112,14 +112,10 @@ int brutesearch(char *pattern, char *string){
 /***************************************************/
 
 char* substitute(char *input, char *pattern, char *replacement) {
-    char *new_string = malloc(32);
-    char right_buffer[32];
-    char left_buffer[32];
-    char pattern_match_buffer[strlen(pattern)];
-    int pattern_match_index = brutesearch(pattern,input);
-    int string_length = strlen(input);
-    int pattern_length = strlen(pattern);
-    int replacement_length = strlen(replacement);
+    char *new_string = malloc(32); // Pointer for new string for output
+    int pattern_match_index = brutesearch(pattern,input); // index point of matched pattern
+    int string_length = strlen(input), pattern_length = strlen(pattern), replacement_length = strlen(replacement); //find length of input strings
+    char pattern_match_buffer[replacement_length], left_buffer[32], right_buffer[32]; // setup string buffers
 
     if(pattern_match_index > string_length){
         //FAILSAFE IF NO MATCH
@@ -137,7 +133,7 @@ char* substitute(char *input, char *pattern, char *replacement) {
        //BUILD STRING
         strcat(left_buffer, pattern_match_buffer); // ADD SUBSTITUTE STRING
         strcat(left_buffer, right_buffer); //ADD LEFTOVER STRING
-        strcpy(new_string, left_buffer);
+        strcpy(new_string, left_buffer); //copy the mutated left_buffer to output string
     }
     return new_string;
 }
