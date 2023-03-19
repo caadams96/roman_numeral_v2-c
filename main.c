@@ -11,8 +11,8 @@
 int main() {
    printf("%s\n",int_to_roman(2844));
 //    printf("%c",roman_to_int("IV"));
-   char* string = "Hello World!";
-   string =  substitute(string,"World","Corey");
+   char* string = "The brown dog chased the bird! and then the dog and dog";
+   string =  substitute(string,"dog","cat");
    printf("%s", string);
   return 0;
 }

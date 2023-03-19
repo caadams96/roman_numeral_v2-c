@@ -112,33 +112,34 @@ int brutesearch(char *pattern, char *string){
 /***************************************************/
 
 char* substitute(char *input, char *pattern, char *replacement) {
-    char *new_string = malloc(32); // Pointer for new string for output
-    int pattern_match_index = brutesearch(pattern,input); // index point of matched pattern
-    int string_length = strlen(input), pattern_length = strlen(pattern), replacement_length = strlen(replacement); //find length of input strings
-    char pattern_match_buffer[replacement_length], left_buffer[32], right_buffer[32]; // setup string buffers
+    char *new_string = malloc(1000); // Pointer for new string for output
+    int pattern_match_index = brutesearch(pattern, input); // index point of matched pattern
+    int string_length = strlen(input), pattern_length = strlen(pattern), replacement_length = strlen(
+            replacement); //find length of input strings
+    char pattern_match_buffer[1000], left_buffer[1000], right_buffer[1000]; // setup string buffers
 
-    if(pattern_match_index > string_length){
+    if (pattern_match_index > string_length) {
         //FAILSAFE IF NO MATCH
         strcpy(new_string, input);
-    }else{
+    } else {
         //BEGINNING PART OF STRING
         memcpy(left_buffer, &input[0], pattern_match_index);
         left_buffer[pattern_match_index] = '\0';
         //LEFTOVER STRING
-        memcpy(right_buffer, &input[pattern_match_index + pattern_length], pattern_match_index);
+        memcpy(right_buffer, &input[pattern_match_index + pattern_length], string_length);
         //SET UP THE MATCHED PATTERN
-        memcpy(pattern_match_buffer,&input[pattern_match_index], replacement_length);
-        memcpy(pattern_match_buffer,replacement, replacement_length);
+        memcpy(pattern_match_buffer, &input[pattern_match_index], replacement_length);
+        memcpy(pattern_match_buffer, replacement, replacement_length);
         pattern_match_buffer[replacement_length] = '\0';
-       //BUILD STRING
+        //BUILD STRING
         strcat(left_buffer, pattern_match_buffer); // ADD SUBSTITUTE STRING
         strcat(left_buffer, right_buffer); //ADD LEFTOVER STRING
         strcpy(new_string, left_buffer); //copy the mutated left_buffer to output string
+//    }
+        return pattern_match_index > string_length ? new_string : substitute(new_string, pattern, replacement);
     }
-    return new_string;
+
+
 }
-
-
-
 /***************************************************/
 
